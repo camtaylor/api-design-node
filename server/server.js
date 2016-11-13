@@ -29,6 +29,19 @@ app.post('/lions', function(req, res) {
   res.json(lion);
 });
 
+app.delete('/lions/:id', function(req, res){
+
+  var lion = _.find(lions, {id: req.params.id});
+  if ( !lion ) {
+    res.send();
+  }
+  else {
+    lions.splice(lions.indexOf(lion), 1);
+    res.json(lion);
+  }
+  
+});
+
 
 app.put('/lions/:id', function(req, res) {
   var update = req.body;
@@ -46,6 +59,7 @@ app.put('/lions/:id', function(req, res) {
 });
 
 app.set('port', (process.env.PORT || 8080));
+
 
 app.listen(app.get('port'), function() {
  console.log("Node app is running at localhost:" + app.get('port'))
